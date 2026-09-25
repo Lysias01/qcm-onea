@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Plateforme de QCM pour préparer le concours d'Ingénieur des Travaux en Informatique – Réseaux et Systèmes (ONEA).">
+  <meta name="theme-color" content="#0b5ea8">
+  <title>QCM ONEA – Réseaux & Systèmes</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 4C22 18 12 29 12 40a20 20 0 0 0 40 0C52 29 42 18 32 4z' fill='%230b5ea8'/%3E%3Cpath d='M24 40l6 6 11-13' stroke='%23fff' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ ACCUEIL ============ -->
+<main id="vue-accueil" class="vue">
+  <header class="hero">
+    <div class="entete">
+      <div class="marque">
+        <span class="logo" aria-hidden="true">
+          <svg viewBox="0 0 64 64" width="26" height="26"><path d="M32 6C22 19 13 29 13 40a19 19 0 0 0 38 0C51 29 42 19 32 6z" fill="currentColor"/><path d="M24 40l6 6 11-13" stroke="#0b2545" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <div>
+          <h1>QCM ONEA</h1>
+          <p class="sous-titre">Ingénieur des Travaux · Réseaux &amp; Systèmes</p>
+        </div>
+      </div>
+      <button id="btn-theme-ui" class="btn-icone btn-icone-hero" aria-label="Changer le thème clair/sombre" title="Thème clair/sombre">◐</button>
+    </div>
+
+    <section class="resume" aria-label="Résumé de votre progression">
+      <div class="resume-chiffres">
+        <div><span class="resume-v" id="res-explore">0 %</span><span class="resume-l">de la banque explorée</span></div>
+        <div><span class="resume-v" id="res-reussite">–</span><span class="resume-l">de réussite</span></div>
+      </div>
+      <div class="resume-barre" aria-hidden="true"><div id="res-barre"></div></div>
+      <div class="courbe">
+        <div class="courbe-titre">Score de vos dernières séries</div>
+        <div class="courbe-zone" id="courbe"></div>
+      </div>
+      <a class="resume-lien" href="progression.html">Ma progression et mon historique <span aria-hidden="true">→</span></a>
+    </section>
+  </header>
+
+  <section id="en-cours" class="en-cours" hidden aria-label="Séries en cours">
+    <h2 class="titre-section">Reprendre</h2>
+    <div id="liste-en-cours" class="liste-en-cours"></div>
+  </section>
+
+  <h2 class="titre-section">Choisir un mode</h2>
+  <section class="modes">
+    <button class="mode-tuile tuile-theme" id="btn-par-theme">
+      <span class="tuile-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+      <span class="tuile-texte">
+        <span class="tuile-titre">Par thème</span>
+        <span class="tuile-desc">Choisissez un domaine</span>
+      </span>
+    </button>
+    <button class="mode-tuile tuile-mixte" id="btn-mixte">
+      <span class="tuile-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg></span>
+      <span class="tuile-texte">
+        <span class="tuile-titre">Série mixte</span>
+        <span class="tuile-desc">Tous les thèmes</span>
+      </span>
+    </button>
+    <button class="mode-tuile tuile-cas" id="btn-cas">
+      <span class="tuile-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg></span>
+      <span class="tuile-texte">
+        <span class="tuile-titre">Cas pratiques</span>
+        <span class="tuile-desc">Situations réelles</span>
+      </span>
+    </button>
+    <button class="mode-tuile tuile-revoir" id="btn-revoir">
+      <span class="tuile-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></span>
+      <span class="tuile-texte">
+        <span class="tuile-titre">À revoir</span>
+        <span class="tuile-desc" id="desc-revoir">Vos erreurs</span>
+      </span>
+    </button>
+    <button class="mode-tuile tuile-examen tuile-large" id="btn-examen">
+      <span class="tuile-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9.5 2h5M12 2v3"/></svg></span>
+      <span class="tuile-texte">
+        <span class="tuile-titre">Examen blanc</span>
+        <span class="tuile-desc">50 questions · 60 min · correction à la fin</span>
+      </span>
+    </button>
+  </section>
+
+  <div class="zone-reset">
+    <button class="btn btn-lien btn-petit" id="btn-reset">Réinitialiser toutes mes données</button>
+  </div>
+</main>
+
+<!-- ============ CHOIX DU THÈME ============ -->
+<main id="vue-themes" class="vue" hidden>
+  <header class="entete-vue">
+    <button class="btn-icone" id="btn-retour-themes" aria-label="Retour à l'accueil">←</button>
+    <div>
+      <h1>Choisir un thème</h1>
+      <p class="sous-titre-vue">Jusqu'à 50 questions par série.</p>
+    </div>
+  </header>
+  <div class="liste-themes" id="liste-themes"></div>
+</main>
+
+<!-- ============ QUIZ ============ -->
+<main id="vue-quiz" class="vue" hidden>
+  <div class="barre-quiz">
+    <button class="btn-icone" id="btn-quitter" aria-label="Quitter la série">✕</button>
+    <div class="barre-centre">
+      <div class="compteur" id="compteur">Question 1/20</div>
+      <div class="progress" aria-hidden="true"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <div class="chrono" id="chrono" hidden>60:00</div>
+    <div class="score-live" id="score-live"></div>
+  </div>
+
+  <article class="question-zone" id="question-zone">
+    <div class="meta" id="q-meta"></div>
+    <div class="enonce" id="q-enonce"></div>
+    <div class="consigne" id="q-consigne"></div>
+    <div class="options" id="q-options" role="group"></div>
+    <div class="feedback" id="q-feedback" hidden></div>
+  </article>
+
+  <div class="actions-quiz">
+    <button class="btn btn-primaire btn-large" id="btn-valider" disabled>Valider</button>
+    <button class="btn btn-primaire btn-large" id="btn-suivant" hidden>Question suivante →</button>
+  </div>
+</main>
+
+<!-- ============ RÉSULTATS ============ -->
+<main id="vue-resultats" class="vue" hidden>
+  <header class="entete entete-simple">
+    <h1>Résultats</h1>
+  </header>
+  <section class="carte resultat-principal" id="res-principal"></section>
+  <section class="carte" id="carte-res-themes">
+    <h2>Répartition par thème</h2>
+    <div id="res-themes"></div>
+  </section>
+  <section class="carte">
+    <h2 id="res-erreurs-titre">Erreurs à corriger</h2>
+    <div id="res-erreurs"></div>
+  </section>
+  <div class="actions-resultats">
+    <button class="btn btn-primaire btn-large" id="btn-nouvelle">Nouvelle série</button>
+    <button class="btn btn-secondaire btn-large" id="btn-refaire-erreurs">Refaire mes erreurs</button>
+    <button class="btn btn-lien btn-large" id="btn-accueil">Retour à l'accueil</button>
+  </div>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="js/config.js"></script>
+<script src="js/donnees.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/bank.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/commun.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
