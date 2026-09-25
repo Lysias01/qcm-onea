@@ -265,9 +265,6 @@ b.bon, .bon { color: var(--ok); } b.moyen { color: var(--moyen); } b.faible, .fa
 .chrono { font-weight: 750; font-variant-numeric: tabular-nums; background: var(--surface); border: 1px solid var(--bord); padding: 7px 11px; border-radius: 11px; font-size: .88rem; white-space: nowrap; box-shadow: var(--ombre-1); }
 .chrono.urgent { color: var(--ko); border-color: var(--ko); background: var(--ko-fond); animation: pulse 1.2s ease-in-out infinite; }
 @keyframes pulse { 50% { opacity: .65; } }
-.score-live { display: flex; gap: 6px; font-size: .82rem; font-weight: 750; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.score-live span { padding: 5px 9px; border-radius: 20px; }
-.score-live .ok { color: var(--ok); background: var(--ok-fond); } .score-live .ko { color: var(--ko); background: var(--ko-fond); }
 
 .question-zone { background: var(--surface); border: 1px solid var(--bord); border-radius: var(--rayon); box-shadow: var(--ombre); padding: 18px; margin-bottom: 12px; scroll-margin-top: 76px; animation: entree .25s ease-out; }
 @keyframes entree { from { opacity: 0; transform: translateY(6px); } }

@@ -197,7 +197,6 @@
     afficherVue("vue-quiz");
     history.pushState({ vue: "quiz" }, "");
     $("#chrono").hidden = !session.examen;
-    $("#score-live").hidden = session.examen;
     reperTemps = Date.now();
     clearInterval(minuteur);
     minuteur = setInterval(tic, 1000);
@@ -239,7 +238,6 @@
 
     $("#compteur").textContent = `Question ${i + 1}/${n}`;
     $("#progress-fill").style.width = (i / n * 100) + "%";
-    majScoreLive();
 
     $("#q-meta").innerHTML = etiquettes(q);
     $("#q-enonce").innerHTML = fmt(q.enonce);
@@ -299,8 +297,7 @@
     } else {
       afficherCorrection(q, ok);
       Store.enregistrerEnCours(session);
-      majScoreLive();
-    }
+      }
   }
 
   function afficherCorrection(q, ok) {
@@ -334,13 +331,6 @@
     session.index++;
     Store.enregistrerEnCours(session);
     renduQuestion();
-  }
-
-  function majScoreLive() {
-    if (!session || session.examen) return;
-    const r = Object.values(session.reponses);
-    const ok = r.filter(x => x.ok).length;
-    $("#score-live").innerHTML = `<span class="ok">✔ ${ok}</span> <span class="ko">✘ ${r.length - ok}</span>`;
   }
 
   $("#btn-quitter").addEventListener("click", quitterQuiz);
